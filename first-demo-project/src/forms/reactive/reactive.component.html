@@ -4,22 +4,32 @@
     <form class="row g-3 needs-validation" [formGroup]="exampleForm" (submit)="handleSubmit($event)">
         <div class="col-md-4">
             <label for="validationCustom01" class="form-label">First name</label>
-            <input formControlName="firstName" type="text" class="form-control" id="validationCustom01">
+            <input formControlName="firstName" type="text" [class]="{
+                'is-invalid':shouldShowError('firstName') && isFormSubmitted,
+                'is-valid':!shouldShowError('firstName') && isFormSubmitted,
+                'form-control':true
+            }" id=" validationCustom01" />
             @if (shouldShowError('firstName')) {
             <div>
                 <small class="text-danger">
-                    {{getError('firstName',"First name")}}
+                    {{ getError("firstName", "First name") }}
                 </small>
             </div>
             }
         </div>
         <div class="col-md-4">
             <label for="validationCustom02" class="form-label">Email</label>
-            <input formControlName="email" type="text" class="form-control" id="validationCustom02" name="lastName">
+            <input formControlName="email" type="text" [class]="
+            {
+                'is-valid':isFormSubmitted && !shouldShowError('email'),
+                'is-invalid':isFormSubmitted && shouldShowError('email'),
+                'form-control':true
+            }
+            " id="validationCustom02" name="lastName" />
             @if(shouldShowError('email')){
             <div>
                 <small class="text-danger">
-                    {{getError('email',"Email")}}
+                    {{ getError("email", "Email") }}
                 </small>
             </div>
             }
