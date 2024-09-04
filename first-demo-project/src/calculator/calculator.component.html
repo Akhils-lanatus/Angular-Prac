@@ -1,0 +1,18 @@
+<div class="container mt-5">
+    <app-custom-alert [alertTitle]="'Calculator'" [alertMessage]="'Sample calculator made using service'"
+        [alertType]="'dark'"></app-custom-alert>
+    <h1 class="heading">Welcome to cal-C </h1>
+    <hr />
+    <h1>Selected service is -- {{selectedService}}</h1>
+    <h2> Answer - {{value}} -- NUM1 - {{num1}} -- NUM2 - {{num2}} </h2>
+    <form (submit)="handleSubmit($event)">
+        <input type="number" name="num1" [(ngModel)]="num1" />
+        <input type="number" name="num2" [(ngModel)]="num2" />
+        <select name="services" [(ngModel)]="selectedService">
+            <option *ngFor="let option of operations" [value]="option">
+                {{option}}
+            </option>
+        </select>
+        <button>Lets go</button>
+    </form>
+</div>

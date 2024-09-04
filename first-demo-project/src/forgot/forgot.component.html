@@ -1,0 +1,11 @@
+<app-custom-alert [alertMessage]="'Welcome to angAuth, OTP will be sent to registered email'"
+    [alertTitle]="'Forgot password'" [alertType]="alertType"></app-custom-alert>
+<app-button (onBtnClick)="onClick($event,29)" [buttonType]="buttonType" [buttonText]="'Click from forgot'"></app-button>
+
+
+<app-custom-alert *ngIf="isValueEmpty && !isInitialLoad" [alertMessage]="'Field must not be empty'"
+    [alertTitle]="'Error'" [alertType]="'danger'"></app-custom-alert>
+
+<input type="text" #user (input)="onUserInput(user)">
+{{isValueEmpty}}
+<button [disabled]="isValueEmpty" (click)="getUserAndClear(user)">Get user</button>

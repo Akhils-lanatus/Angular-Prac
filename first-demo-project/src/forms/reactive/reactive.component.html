@@ -1,0 +1,34 @@
+<div class="container mt-4">
+    <app-custom-alert [alertTitle]="'Reactive Forms'" [alertMessage]="'Reactive form example'"
+        [alertType]="'dark'"></app-custom-alert>
+    <form class="row g-3 needs-validation" [formGroup]="exampleForm" (submit)="handleSubmit($event)">
+        <div class="col-md-4">
+            <label for="validationCustom01" class="form-label">First name</label>
+            <input formControlName="firstName" type="text" class="form-control" id="validationCustom01">
+            @if (shouldShowError('firstName')) {
+            <div>
+                <small class="text-danger">
+                    {{getError('firstName',"First name")}}
+                </small>
+            </div>
+            }
+        </div>
+        <div class="col-md-4">
+            <label for="validationCustom02" class="form-label">Email</label>
+            <input formControlName="email" type="text" class="form-control" id="validationCustom02" name="lastName">
+            @if(shouldShowError('email')){
+            <div>
+                <small class="text-danger">
+                    {{getError('email',"Email")}}
+                </small>
+            </div>
+            }
+        </div>
+        <div class="col-6">
+            <button class="btn btn-danger" type="reset">Reset values</button>
+        </div>
+        <div class="col-6">
+            <button class="btn btn-primary" type="submit">Submit form</button>
+        </div>
+    </form>
+</div>

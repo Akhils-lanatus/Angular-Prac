@@ -1,0 +1,11 @@
+<ng-container *ngIf="selectedProduct.hasOwnProperty('name'); else noData">
+    <div class="text-center">
+        <h2>ID - {{selectedProduct.id}}</h2>
+        <h2>NAME - {{selectedProduct.name}}</h2>
+        <h2>PRICE - {{selectedProduct.price}}</h2>
+        <button class="btn btn-danger" (click)="onClick()">Clear</button>
+    </div>
+</ng-container>
+<ng-template #noData>
+    <h1 class="text-dark text-center">No data found</h1>
+</ng-template>

@@ -1,0 +1,54 @@
+Dynamic data
+<app-temp></app-temp>
+<h1>{{ title }}</h1>
+<hr />
+<br />
+<button [id]="id" [disabled]="isValid" [ngStyle]="{ 'background-color': !isValid ? 'orange' : 'green' }">
+    {{ buttonTitle }}
+</button>
+<!-- if else -->
+<!-- @if (isAdmin){
+    <h1>Welcome Admin</h1>
+    }@else {
+    <h1>Get out non auth user</h1>
+    } -->
+<ng-container *ngIf="isAdmin; else otherUser">
+    <h1>Admin hai hum 😎</h1>
+</ng-container>
+<ng-template #otherUser>
+    <h1>Non admin hai hum</h1>
+</ng-template>
+<!-- <h1 *ngIf="isAdmin">Welcome Admin</h1>
+    <h1 *ngIf="!isAdmin">You are ordinary user</h1> -->
+<!-- loop -->
+<hr />
+<h2>For loop 1</h2>
+<ul>
+    @for (ingredient of ingredientList; track ingredient.name) {
+    <li>{{ ingredient.name }} = {{ ingredient.quantity }}</li>
+    }
+</ul>
+<h2>NG FOR LOOP</h2>
+<ul>
+    <li *ngFor="
+          let ingredient of ingredientList;
+          let i = index;
+          trackBy: myTrack
+          
+        ">
+        Index - {{ i }} | Name = {{ ingredient.name }} | Quantity -
+        {{ ingredient.quantity }}
+    </li>
+</ul>
+
+<button (click)="toggleAdmin()">
+    Toggle Admin
+</button>
+
+<hr />
+<h1> {{sum}} - {{num1}} - {{num2}}</h1>
+<form (submit)="handleSubmit($event)">
+    <input type="number" [(ngModel)]="num1" name="num1" />
+    <input type="number" [(ngModel)]="num2" name="num2" />
+    <button type="submit">Add</button>
+</form>

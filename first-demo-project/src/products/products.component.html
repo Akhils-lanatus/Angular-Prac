@@ -1,0 +1,21 @@
+<div>
+    <table class="table table-bordered table-dark ">
+        <thead>
+            <tr>
+                <th>Sr no</th>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let data of products">
+                <td>{{data.id}}</td>
+                <td>{{data.name}}</td>
+                <td>{{data.price}}</td>
+                <td><button class="btn btn-primary" (click)="setSelectedProduct(data)">View</button></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<app-product-list [selectedProduct]="selectedProduct" (removeBtnClick)="unsetSelectedProduct()"></app-product-list>

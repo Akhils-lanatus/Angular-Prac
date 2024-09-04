@@ -1,0 +1,112 @@
+
+
+### `FormControl`
+
+- **Constructor**:
+  - `new FormControl(value: any, validators: ValidatorFn | ValidatorFn[] | null = null, asyncValidators: AsyncValidatorFn | AsyncValidatorFn[] | null = null)`
+
+- **Methods**:
+  - `setValue(value: any, options?: { emitModelToViewChange?: boolean; emitViewToModelChange?: boolean; onlySelf?: boolean })`: Sets the value of the control.
+  - `patchValue(value: any, options?: { emitModelToViewChange?: boolean; emitViewToModelChange?: boolean; onlySelf?: boolean })`: Patches the value of the control.
+  - `reset(value: any = null, options?: { onlySelf?: boolean; emitEvent?: boolean })`: Resets the value of the control.
+  - `markAsTouched(opts?: { onlySelf?: boolean }): void`: Marks the control as touched.
+  - `markAsUntouched(opts?: { onlySelf?: boolean }): void`: Marks the control as untouched.
+  - `markAsDirty(opts?: { onlySelf?: boolean }): void`: Marks the control as dirty.
+  - `markAsPristine(opts?: { onlySelf?: boolean }): void`: Marks the control as pristine.
+  - `disable(opts?: { onlySelf?: boolean; emitEvent?: boolean }): void`: Disables the control.
+  - `enable(opts?: { onlySelf?: boolean; emitEvent?: boolean }): void`: Enables the control.
+  - `setErrors(errors: ValidationErrors | null, opts?: { emitEvent?: boolean }): void`: Sets the errors of the control.
+  - `clearValidators(): void`: Clears all validators.
+  - `addValidators(validators: ValidatorFn | ValidatorFn[]): void`: Adds validators.
+  - `removeValidators(validators: ValidatorFn | ValidatorFn[]): void`: Removes validators.
+  - `setAsyncValidators(validators: AsyncValidatorFn | AsyncValidatorFn[]): void`: Sets async validators.
+  - `clearAsyncValidators(): void`: Clears async validators.
+  - `hasError(errorCode: string, path?: string[]): boolean`: Checks if the control has a specific error.
+
+- **Properties**:
+  - `value: any`: The current value of the control.
+  - `status: string`: The status of the control (e.g., 'VALID', 'INVALID').
+  - `errors: ValidationErrors | null`: The errors of the control.
+  - `pristine: boolean`: Whether the control is pristine.
+  - `dirty: boolean`: Whether the control is dirty.
+  - `touched: boolean`: Whether the control is touched.
+  - `untouched: boolean`: Whether the control is untouched.
+  - `enabled: boolean`: Whether the control is enabled.
+  - `disabled: boolean`: Whether the control is disabled.
+
+### `FormGroup`
+
+- **Constructor**:
+  - `new FormGroup(controls: { [key: string]: AbstractControl }, validator?: ValidatorFn | ValidatorFn[] | null, asyncValidator?: AsyncValidatorFn | AsyncValidatorFn[] | null)`
+
+- **Methods**:
+  - `setValue(value: { [key: string]: any }, options?: { emitModelToViewChange?: boolean; emitViewToModelChange?: boolean; onlySelf?: boolean })`: Sets the value of the group.
+  - `patchValue(value: { [key: string]: any }, options?: { emitModelToViewChange?: boolean; emitViewToModelChange?: boolean; onlySelf?: boolean })`: Patches the value of the group.
+  - `reset(value?: { [key: string]: any }, options?: { onlySelf?: boolean; emitEvent?: boolean })`: Resets the group.
+  - `addControl(name: string, control: AbstractControl): void`: Adds a new control to the group.
+  - `removeControl(name: string): void`: Removes a control from the group.
+  - `setControl(name: string, control: AbstractControl): void`: Replaces an existing control.
+  - `getRawValue(): any`: Returns the raw value of the group (including disabled controls).
+  - `disable(opts?: { onlySelf?: boolean; emitEvent?: boolean }): void`: Disables the group.
+  - `enable(opts?: { onlySelf?: boolean; emitEvent?: boolean }): void`: Enables the group.
+  - `setErrors(errors: ValidationErrors | null, opts?: { emitEvent?: boolean }): void`: Sets the errors for the group.
+  - `clearValidators(): void`: Clears all validators.
+  - `addValidators(validators: ValidatorFn | ValidatorFn[]): void`: Adds validators.
+  - `removeValidators(validators: ValidatorFn | ValidatorFn[]): void`: Removes validators.
+  - `setAsyncValidators(validators: AsyncValidatorFn | AsyncValidatorFn[]): void`: Sets async validators.
+  - `clearAsyncValidators(): void`: Clears async validators.
+
+- **Properties**:
+  - `controls: { [key: string]: AbstractControl }`: The controls contained in the group.
+  - `value: { [key: string]: any }`: The current value of the group.
+  - `status: string`: The status of the group.
+  - `errors: ValidationErrors | null`: The errors of the group.
+  - `pristine: boolean`: Whether the group is pristine.
+  - `dirty: boolean`: Whether the group is dirty.
+  - `touched: boolean`: Whether the group is touched.
+  - `untouched: boolean`: Whether the group is untouched.
+  - `enabled: boolean`: Whether the group is enabled.
+  - `disabled: boolean`: Whether the group is disabled.
+
+### `FormArray`
+
+- **Constructor**:
+  - `new FormArray(controls: AbstractControl[], validator?: ValidatorFn | ValidatorFn[] | null, asyncValidator?: AsyncValidatorFn | AsyncValidatorFn[] | null)`
+
+- **Methods**:
+  - `push(control: AbstractControl): void`: Adds a new control to the array.
+  - `insert(index: number, control: AbstractControl): void`: Inserts a new control at the specified index.
+  - `removeAt(index: number): void`: Removes the control at the specified index.
+  - `clear(): void`: Clears all controls from the array.
+  - `setValue(value: any[], options?: { emitModelToViewChange?: boolean; emitViewToModelChange?: boolean; onlySelf?: boolean })`: Sets the value of the array.
+  - `patchValue(value: any[], options?: { emitModelToViewChange?: boolean; emitViewToModelChange?: boolean; onlySelf?: boolean })`: Patches the value of the array.
+  - `reset(value?: any[], options?: { onlySelf?: boolean; emitEvent?: boolean })`: Resets the array.
+  - `disable(opts?: { onlySelf?: boolean; emitEvent?: boolean }): void`: Disables the array.
+  - `enable(opts?: { onlySelf?: boolean; emitEvent?: boolean }): void`: Enables the array.
+  - `setErrors(errors: ValidationErrors | null, opts?: { emitEvent?: boolean }): void`: Sets the errors for the array.
+  - `clearValidators(): void`: Clears all validators.
+  - `addValidators(validators: ValidatorFn | ValidatorFn[]): void`: Adds validators.
+  - `removeValidators(validators: ValidatorFn | ValidatorFn[]): void`: Removes validators.
+  - `setAsyncValidators(validators: AsyncValidatorFn | AsyncValidatorFn[]): void`: Sets async validators.
+  - `clearAsyncValidators(): void`: Clears async validators.
+
+- **Properties**:
+  - `controls: AbstractControl[]`: The controls contained in the array.
+  - `value: any[]`: The current value of the array.
+  - `status: string`: The status of the array.
+  - `errors: ValidationErrors | null`: The errors of the array.
+  - `pristine: boolean`: Whether the array is pristine.
+  - `dirty: boolean`: Whether the array is dirty.
+  - `touched: boolean`: Whether the array is touched.
+  - `untouched: boolean`: Whether the array is untouched.
+  - `enabled: boolean`: Whether the array is enabled.
+  - `disabled: boolean`: Whether the array is disabled.
+
+### `FormBuilder` (Helper Class)
+
+- **Methods**:
+  - `group(controlsConfig: { [key: string]: any }, options?: { validator?: ValidatorFn | ValidatorFn[]; asyncValidator?: AsyncValidatorFn | AsyncValidatorFn[] }): FormGroup`
+  - `control(formState: any, validators: ValidatorFn | ValidatorFn[] = [], asyncValidators: AsyncValidatorFn | AsyncValidatorFn[] = []): FormControl`
+  - `array(controlsConfig: AbstractControl[], validator: ValidatorFn | ValidatorFn[] = [], asyncValidator: AsyncValidatorFn | AsyncValidatorFn[] = []): FormArray`
+
+These methods and properties allow you to manage form controls and their states effectively, ensuring that your Angular forms are robust and dynamic.
