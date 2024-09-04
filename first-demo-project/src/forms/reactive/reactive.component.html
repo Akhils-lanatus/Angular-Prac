@@ -5,8 +5,8 @@
         <div class="col-md-4">
             <label for="validationCustom01" class="form-label">First name</label>
             <input formControlName="firstName" type="text" [class]="{
-                'is-invalid':shouldShowError('firstName') && isFormSubmitted,
-                'is-valid':!shouldShowError('firstName') && isFormSubmitted,
+                'is-invalid':shouldShowError('firstName'),
+                'is-valid':!shouldShowError('firstName'),
                 'form-control':true
             }" id=" validationCustom01" />
             @if (shouldShowError('firstName')) {
@@ -21,8 +21,8 @@
             <label for="validationCustom02" class="form-label">Email</label>
             <input formControlName="email" type="text" [class]="
             {
-                'is-valid':isFormSubmitted && !shouldShowError('email'),
-                'is-invalid':isFormSubmitted && shouldShowError('email'),
+                'is-valid': !shouldShowError('email'),
+                'is-invalid': shouldShowError('email'),
                 'form-control':true
             }
             " id="validationCustom02" name="lastName" />
@@ -35,15 +35,27 @@
             }
         </div>
 
-        <div formArrayName="friends" *ngFor="let item of friendsControls; index as i"
+        <div formArrayName="friends" *ngFor="let item of friendsControls.controls; index as i"
             class="row d-flex mt-2 align-items-end">
             <div class="col-md-8">
-                <label for="validationCustom02" class="form-label">Friends</label>
-                <input [formControlName]="i" type="text" />
+                <label for="validationCustom02" class="form-label">Friends Index-{{i}}</label>
+                <input [formControlName]="i" type="text" [class]="{
+                'is-invalid':shouldShowError(i) ,
+                'is-valid':!shouldShowError(i) ,
+                'form-control':true
+            }" />
+                @if(shouldShowError(i)){
+                <div>
+                    <small class="text-danger">
+                        {{ getError(i,'Friend name') }}
+                    </small>
+                </div>
+                }
             </div>
             <div class="col-md-4">
                 <div class="col-6">
-                    <button class="btn btn-danger" type="reset" (click)="endFriendship(i)">End friendship</button>
+                    <button class="btn btn-danger" [disabled]="friendsControls.length===1" type="button"
+                        (click)="endFriendship(i)">End friendship</button>
                 </div>
             </div>
         </div>
@@ -58,7 +70,7 @@
             <button class="btn btn-danger" type="reset">Reset values</button>
         </div>
         <div class="col-6">
-            <button class="btn btn-primary" type="submit">Submit form</button>
+            <button class="btn btn-primary" [disabled]="exampleForm.invalid" type="submit">Submit form</button>
         </div>
     </form>
 </div>

@@ -14,7 +14,7 @@ import { CommonModule } from '@angular/common';
   standalone: true,
   imports: [CustomAlertComponent, CommonModule, ReactiveFormsModule],
   templateUrl: './reactive.component.html',
-  styleUrl: './reactive.component.css',
+  styleUrls: ['./reactive.component.css'],
 })
 export class ReactiveComponent {
   exampleForm: FormGroup = new FormGroup({
@@ -24,47 +24,57 @@ export class ReactiveComponent {
       Validators.maxLength(20),
     ]),
     email: new FormControl('', [Validators.required, Validators.email]),
-    friends: new FormArray([new FormControl(null, Validators.required)]),
+    friends: new FormArray([
+      new FormControl('', Validators.required),
+      new FormControl('', Validators.required),
+    ]),
   });
 
-  isFormSubmitted: boolean = false;
+  formData = {};
 
-  handleSubmit(e: SubmitEvent) {
-    this.isFormSubmitted = true;
+  handleSubmit(e: Event) {
     e.preventDefault();
+
     if (this.exampleForm.invalid) {
       this.exampleForm.markAllAsTouched();
       return;
     }
 
+    this.formData = { ...this.exampleForm.value };
     this.exampleForm.reset();
-    this.isFormSubmitted = false;
   }
 
-  shouldShowError(controlName: string | number): any {
-    const field = this.exampleForm.controls[controlName];
+  shouldShowError(controlName: string | number): boolean {
+    if (typeof controlName === 'number') {
+      const control = this.friendsControls as FormArray;
+      return control.invalid && (control.touched || control.dirty);
+    }
+    const control = this.exampleForm.get(controlName) as FormControl;
+    return control.invalid && (control.dirty || control.touched);
+  }
+
+  getError(controlName: string | number, controlLabel?: string): string {
+    let errors = '';
 
     if (typeof controlName === 'number') {
-      const control = this.friendsControls.at(controlName);
-      return control.invalid && (control.touched || this.isFormSubmitted);
+      const controlArray = this.friendsControls.at(controlName) as FormControl;
+      errors = this.getErrorMessage(controlArray, controlLabel);
+    } else {
+      const control = this.exampleForm.get(controlName) as FormControl;
+      errors = this.getErrorMessage(control, controlLabel);
     }
 
-    if (typeof controlName === 'string') {
-      return (
-        field.invalid &&
-        (field.errors || false) &&
-        (field.dirty || field.touched)
-      );
-    }
+    return errors;
   }
 
-  getError(controlName: string, controlLabel: string): string {
-    const control = this.exampleForm.controls[controlName];
-    if (this.isFormSubmitted) {
+  private getErrorMessage(control: FormControl, controlLabel?: string): string {
+    if (control.errors) {
       if (control.errors?.['required']) {
         return `${controlLabel} is required`;
       } else if (control.errors?.['minlength']) {
-        return `Minimum length for ${controlLabel} is ${control.errors?.['minlength']?.['requiredLength']}`;
+        return `Minimum length for ${controlLabel} is ${control.errors?.['minlength'].requiredLength}`;
+      } else if (control.errors?.['maxlength+']) {
+        return `Minimum length for ${controlLabel} is ${control.errors?.['maxlength'].requiredLength}`;
       } else if (control.errors?.['email']) {
         return 'Invalid email format';
       }
@@ -73,19 +83,18 @@ export class ReactiveComponent {
   }
 
   addNewFriend() {
-    const friends = this.exampleForm.get('friends') as FormArray;
-    friends.push(new FormControl(null, Validators.required));
+    this.friendsControls.push(new FormControl('', Validators.required));
+    this.exampleForm.reset();
   }
 
   endFriendship(index: number) {
-    const friends = this.exampleForm.get('friends') as FormArray;
+    const friends = this.friendsControls;
     if (friends.length > 1) {
       friends.removeAt(index);
     }
   }
 
   get friendsControls() {
-    const friends = this.exampleForm.get('friends') as FormArray;
-    return friends.controls;
+    return this.exampleForm.get('friends') as FormArray;
   }
 }
