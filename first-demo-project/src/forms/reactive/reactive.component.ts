@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { CustomAlertComponent } from '../../common/custom-alert/custom-alert.component';
 import {
+  FormArray,
   FormControl,
   FormGroup,
   ReactiveFormsModule,
@@ -23,6 +24,7 @@ export class ReactiveComponent {
       Validators.maxLength(20),
     ]),
     email: new FormControl('', [Validators.required, Validators.email]),
+    friends: new FormArray([new FormControl(null, Validators.required)]),
   });
 
   isFormSubmitted: boolean = false;
@@ -39,12 +41,21 @@ export class ReactiveComponent {
     this.isFormSubmitted = false;
   }
 
-  shouldShowError(controlName: string): boolean {
+  shouldShowError(controlName: string | number): any {
     const field = this.exampleForm.controls[controlName];
 
-    return (
-      field.invalid && (field.errors || false) && (field.dirty || field.touched)
-    );
+    if (typeof controlName === 'number') {
+      const control = this.friendsControls.at(controlName);
+      return control.invalid && (control.touched || this.isFormSubmitted);
+    }
+
+    if (typeof controlName === 'string') {
+      return (
+        field.invalid &&
+        (field.errors || false) &&
+        (field.dirty || field.touched)
+      );
+    }
   }
 
   getError(controlName: string, controlLabel: string): string {
@@ -59,5 +70,22 @@ export class ReactiveComponent {
       }
     }
     return '';
+  }
+
+  addNewFriend() {
+    const friends = this.exampleForm.get('friends') as FormArray;
+    friends.push(new FormControl(null, Validators.required));
+  }
+
+  endFriendship(index: number) {
+    const friends = this.exampleForm.get('friends') as FormArray;
+    if (friends.length > 1) {
+      friends.removeAt(index);
+    }
+  }
+
+  get friendsControls() {
+    const friends = this.exampleForm.get('friends') as FormArray;
+    return friends.controls;
   }
 }

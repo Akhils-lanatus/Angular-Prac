@@ -34,6 +34,26 @@
             </div>
             }
         </div>
+
+        <div formArrayName="friends" *ngFor="let item of friendsControls; index as i"
+            class="row d-flex mt-2 align-items-end">
+            <div class="col-md-8">
+                <label for="validationCustom02" class="form-label">Friends</label>
+                <input [formControlName]="i" type="text" />
+            </div>
+            <div class="col-md-4">
+                <div class="col-6">
+                    <button class="btn btn-danger" type="reset" (click)="endFriendship(i)">End friendship</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-12 mt-2">
+            <div class="btn btn-success w-25" (click)="addNewFriend()">
+                Add New Friend
+            </div>
+        </div>
+
         <div class="col-6">
             <button class="btn btn-danger" type="reset">Reset values</button>
         </div>
