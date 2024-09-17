@@ -43,7 +43,8 @@ Dynamic data
 <button (click)="toggleAdmin()">
     Toggle Admin
 </button>
-
+{{counter}}
+<button class="btn btn-primary" (click)="increment()">Start counter</button>
 <hr />
 <h1> {{sum}} - {{num1}} - {{num2}}</h1>
 <form (submit)="handleSubmit($event)">

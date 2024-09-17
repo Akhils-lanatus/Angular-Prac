@@ -1,0 +1,12 @@
+<p>test-dor works!</p>
+<button (click)="toggler()">Toggle</button>
+<br>
+<div *appHighlight="customNgIf">
+    <h1>Hello Am I reverse ???</h1>
+</div>
+
+<ng-template [appHighlight]="customNgIf">
+    <div>
+        <h1>HI</h1>
+    </div>
+</ng-template>

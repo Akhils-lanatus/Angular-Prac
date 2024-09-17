@@ -6,6 +6,9 @@ import { ProductsComponent } from '../products/products.component';
 import { TemplateComponent } from '../forms/template/template.component';
 import { ReactiveComponent } from '../forms/reactive/reactive.component';
 import { CalculatorComponent } from '../calculator/calculator.component';
+import { TestDorComponent } from '../test-dor/test-dor.component';
+import { ParentFormComponent } from '../forms/ControlValueAccessor/parent-form/parent-form.component';
+import { RxjsComponent } from '../rxjs/rxjs.component';
 
 export const routes: Routes = [
   {
@@ -42,5 +45,20 @@ export const routes: Routes = [
     title: 'Reactive Form',
     path: 'reactive-form',
     component: ReactiveComponent,
+  },
+  {
+    title: 'Directive',
+    path: 'directive',
+    component: TestDorComponent,
+  },
+  {
+    title: 'ControlValueAccessor',
+    path: 'ControlValueAccessor',
+    component: ParentFormComponent,
+  },
+  {
+    title: 'rxjs',
+    path: 'rxjs',
+    component: RxjsComponent,
   },
 ];
